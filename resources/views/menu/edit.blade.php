@@ -3,7 +3,7 @@
 @section('title', 'Menu edite')
 @section('contend')
     <div class="card">
-        <form action="#" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('menu.update', $menu->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="card-header">
@@ -45,7 +45,7 @@
                 <div class="form-group row mb-4">
                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Thumbnail</label>
                     <div class="col-sm-12 col-md-7">
-                        <div id="image-preview" class="image-preview" style="background-image: url("{{ $menu->thumbnail }}")">
+                        <div id="image-preview" class="image-preview" style="background-image: url({{ asset($menu->thumbnail) }}); background-size: cover; background-position: center;">
                             <label for="image-upload" id="image-label">Choose File</label>
                             <input type="file" name="thumbnail" id="image-upload" />
                         </div>
@@ -66,4 +66,8 @@
             </div>
         </form>
     </div>
+@endsection
+
+@section('script')
+    <script src="{{ asset('assets/js/page/features-post-create.js') }}"></script>
 @endsection
