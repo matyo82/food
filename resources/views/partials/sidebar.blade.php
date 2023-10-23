@@ -13,6 +13,7 @@
 
             </li>
             <li class="menu-header">Starter</li>
+            {{--    category    --}}
             <li class="dropdown {{ request()->routeIs('category.*') ? 'active':'' }}">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i>
                     <span>category</span></a>
@@ -28,6 +29,7 @@
                     </li>
                 </ul>
             </li>
+            {{--    menu    --}}
             <li class="dropdown {{ request()->routeIs('menu.*') ? 'active':'' }}">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i>
                     <span>menu</span></a>
@@ -37,6 +39,19 @@
                     </li>
                     <li class="{{ request()->routeIs('menu.create') ? 'active':'' }}">
                         <a class="nav-link" href="{{ route('menu.create') }}">Create Menu</a>
+                    </li>
+                </ul>
+            </li>
+            {{--    blog    --}}
+            <li class="dropdown {{ request()->routeIs('blog.*') ? 'active':'' }}">
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i>
+                    <span>blog</span></a>
+                <ul class="dropdown-menu">
+                    <li class="{{ request()->routeIs('blog.index') ? 'active':'' }}">
+                        <a class="nav-link" href="{{ route('blog.index') }}">blog List</a>
+                    </li>
+                    <li class="{{ request()->routeIs('blog.create') ? 'active':'' }}">
+                        <a class="nav-link" href="{{ route('blog.create') }}">Create blog</a>
                     </li>
                 </ul>
             </li>

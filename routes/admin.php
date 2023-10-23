@@ -25,4 +25,9 @@ Route::group(['middleware' => ['role:admin']], function () {
     Route::resource('/Menu',
         \App\Http\Controllers\MenuController::class,
         ['names' => 'menu']);
+
+    // Blog routes
+    Route::resource('/blog',
+        \App\Http\Controllers\BlogController::class,
+        ['names' => 'blog']);
 });
