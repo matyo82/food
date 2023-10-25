@@ -30,4 +30,9 @@ Route::group(['middleware' => ['role:admin']], function () {
     Route::resource('/blog',
         \App\Http\Controllers\BlogController::class,
         ['names' => 'blog']);
+
+    // Gallery routes
+    Route::resource('/gallery',
+        \App\Http\Controllers\GalleryController::class,
+        ['names' => 'gallery']);
 });

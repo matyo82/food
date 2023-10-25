@@ -57,6 +57,6 @@
     </div>
 @endsection
 
-@section('scripts')
+@section('script')
     <script src="{{ asset('assets/js/page/features-post-create.js') }}"></script>
 @endsection
