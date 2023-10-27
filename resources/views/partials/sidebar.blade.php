@@ -71,6 +71,19 @@
                     </li>
                 </ul>
             </li>
+            {{--    slider  --}}
+            <li class="dropdown {{ request()->routeIs('slider.*') ? 'active':'' }}">
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i>
+                    <span>slider</span></a>
+                <ul class="dropdown-menu">
+                    <li class="{{ request()->routeIs('slider.index') ? 'active':'' }}">
+                        <a class="nav-link" href="{{ route('slider.index') }}">slider List</a>
+                    </li>
+                    <li class="{{ request()->routeIs('slider.create') ? 'active':'' }}">
+                        <a class="nav-link" href="{{ route('slider.create') }}">Create slider</a>
+                    </li>
+                </ul>
+            </li>
         </ul>
     </aside>
 </div>
