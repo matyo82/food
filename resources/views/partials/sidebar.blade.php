@@ -84,6 +84,48 @@
                     </li>
                 </ul>
             </li>
+
+            {{--    Service  --}}
+            <li class="dropdown {{ request()->routeIs('service.*') ? 'active':'' }}">
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i>
+                    <span>service</span></a>
+                <ul class="dropdown-menu">
+                    <li class="{{ request()->routeIs('service.index') ? 'active':'' }}">
+                        <a class="nav-link" href="{{ route('service.index') }}">service List</a>
+                    </li>
+                    <li class="{{ request()->routeIs('service.create') ? 'active':'' }}">
+                        <a class="nav-link" href="{{ route('service.create') }}">Create service</a>
+                    </li>
+                </ul>
+            </li>
+
+            {{--    Staff  --}}
+            <li class="dropdown {{ request()->routeIs('staff.*') ? 'active':'' }}">
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i>
+                    <span>staff</span></a>
+                <ul class="dropdown-menu">
+                    <li class="{{ request()->routeIs('staff.index') ? 'active':'' }}">
+                        <a class="nav-link" href="{{ route('staff.index') }}">staff List</a>
+                    </li>
+                    <li class="{{ request()->routeIs('staff.create') ? 'active':'' }}">
+                        <a class="nav-link" href="{{ route('staff.create') }}">Create staff</a>
+                    </li>
+                </ul>
+            </li>
+
+            {{--    reservation    --}}
+            <li class="{{ request()->routeIs('admin.reserve') ? 'action':'' }}">
+                <a href="{{ route('admin.reserve') }}" class="nav-link">
+                    <i class="fas fa-fire"></i><span>Reservation</span>
+                </a>
+            </li>
+
+            {{--    Generale seting    --}}
+            <li class="{{ request()->routeIs('admin.general') ? 'action':'' }}">
+                <a href="{{ route('admin.general') }}" class="nav-link">
+                    <i class="fas fa-fire"></i><span>general</span>
+                </a>
+            </li>
         </ul>
     </aside>
 </div>

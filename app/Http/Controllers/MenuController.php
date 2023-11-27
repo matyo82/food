@@ -24,7 +24,7 @@ class MenuController extends Controller
      */
     public function create()
     {
-        $page_title = 'Menu List';
+        $page_title = 'Menu create';
         $categories = Category::where('type', 0)->get();
         return view('menu.create', compact('page_title', 'categories'));
 
