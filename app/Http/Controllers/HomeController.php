@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\Contact;
 use App\Models\Blog;
 use App\Models\Category;
+use App\Models\General;
 use App\Models\Menu;
 use App\Models\Reserve;
 use App\Models\Slider;
+use App\Models\Staff;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class HomeController extends Controller
 {
@@ -30,8 +34,10 @@ class HomeController extends Controller
     {
         $sliders = Slider::all();
         $menus1 = Menu::orderBy('id', "DESC")->limit(4)->get();
+        $blog = Blog::orderBy('created_at', "DESC")->limit(6)->get();
         $menus2 = Menu::orderBy('id')->limit(4)->get();
-        return view('home', compact('sliders', 'menus1', 'menus2'));
+        $staff = Staff::all();
+        return view('home', compact('sliders', 'menus1', 'menus2', 'staff', 'blog'));
     }
 
     public function menu()
@@ -71,5 +77,24 @@ class HomeController extends Controller
         $blog = Blog::where('category_id', $id)->get();
 
         return view('frontend.blog.index', compact('blog'));
+    }
+
+    public function contactUs()
+    {
+        return view('frontend.contact-us');
+    }
+
+    public function mail(Request $request)
+    {
+        $general = General::latest('created_at')->first();
+        $data = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'phoneNumber' => $request->phoneNumber,
+            'message' => $request->message,
+        ];
+
+        Mail::to($general->email)->send(new Contact($data));
+        return back()->with('success', 'your message has sent!');
     }
 }

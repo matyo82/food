@@ -8,29 +8,26 @@
                             <h4 class="title m-0">Contact us</h4>
                             <p class="m-t10">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
                         </div>
-                        <form class="dzForm dezPlaceAni" method="POST" action="https://swigo.dexignzone.com/xhtml/script/contact_smtp.php">
-                            <input type="hidden" class="form-control" name="dzToDo" value="Contact">
-                            <input type="hidden" class="form-control" name="reCaptchaEnable" value="0" >
-                            <div class="dzFormMsg"></div>
+                        <form class="dzForm dezPlaceAni" method="post" action="{{ route('mail') }}">
                             <div class="row">
                                 <div class="col-lg-12 col-md-12">
                                     <div class="input-group input-line">
-                                        <input name="dzName" required type="text" class="form-control" placeholder="Your Name">
+                                        <input name="name" required type="text" class="form-control" placeholder="Your Name">
                                     </div>
                                 </div>
                                 <div class="col-lg-12 col-md-12">
                                     <div class="input-group input-line">
-                                        <input name="dzEmail" required type="text" class="form-control" placeholder="Email Address">
+                                        <input name="email" required type="text" class="form-control" placeholder="Email Address">
                                     </div>
                                 </div>
                                 <div class="col-lg-12 col-md-12">
                                     <div class="input-group input-line">
-                                        <input name="dzOther[Subject]" required type="text" class="form-control" placeholder="Subject">
+                                        <input name="phoneNumber" required type="text" class="form-control" placeholder="Your Number">
                                     </div>
                                 </div>
                                 <div class="col-sm-12 ">
                                     <div class="input-group input-line">
-                                        <textarea name="dzMessage" required class="form-control" placeholder="Message"></textarea>
+                                        <textarea name="message" required class="form-control" placeholder="Message"></textarea>
                                     </div>
                                 </div>
                                 <div class="col-sm-12">
@@ -64,7 +61,7 @@
                     <div class="widget widget_services">
                         <h5 class="footer-title">Our Links</h5>
                         <ul>
-                            <li><a href="index.html"><span>Home</span></a></li>
+                            <li><a href="/"><span>Home</span></a></li>
                             <li><a href="about-us.html"><span>About Us</span></a></li>
                             <li><a href="services.html"><span>Services</span></a></li>
                             <li><a href="team.html"><span>Team</span></a></li>
@@ -77,10 +74,8 @@
                         <h5 class="footer-title">Help Center</h5>
                         <ul>
                             <li><a href="faq.html"><span>FAQ</span></a></li>
-                            <li><a href="shop-style-1.html"><span>Shop</span></a></li>
-                            <li><a href="shop-style-2.html"><span>Category Filter</span></a></li>
-                            <li><a href="testimonial.html"><span>Testimonials</span></a></li>
-                            <li><a href="contact-us.html"><span>Contact Us</span></a></li>
+                            <li><a href="/"><span>Shop</span></a></li>
+                            <li><a href="{{ route('contactUs') }}"><span>Contact Us</span></a></li>
                         </ul>
                     </div>
                 </div>

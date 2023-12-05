@@ -18,7 +18,11 @@ Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/menu', [App\Http\Controllers\HomeController::class, 'menu'])->name('menu');
+Route::post('/mail', [App\Http\Controllers\HomeController::class, 'mail'])->name('mail');
 Route::post('/reserve', [App\Http\Controllers\HomeController::class, 'reserve'])->name('reserve');
 Route::get('/blogs', [\App\Http\Controllers\HomeController::class, 'blog'])->name('allblogs');
 Route::get('/blogs/{blog}', [\App\Http\Controllers\HomeController::class, 'getBlog'])->name('get.blog');
 Route::get('/category/blog/{id}', [\App\Http\Controllers\HomeController::class, 'getCategoryBlog'])->name('category.blog');
+Route::get('/contact-us', [\App\Http\Controllers\HomeController::class, 'contactUs'])->name('contactUs');
+// cart route
+Route::get('/cart/{menu}/{user}', [\App\Http\Controllers\CartController::class, 'addCart'])->name('cart.add');

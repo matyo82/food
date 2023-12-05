@@ -88,18 +88,25 @@
                                     <img src="{{ asset($item->thumbnail) }}" alt="/">
                                 </div>
                                 <div class="dz-content">
-                                    <h4 class="dz-title"><a href="product-detail.html">{{ $item->title }}</a></h4>
+                                    <h4 class="dz-title"><a href="#">{{ $item->title }}</a></h4>
                                     <p>{!! $item->description !!}</p>
                                     <h5 class="dz-price text-primary">${{ $item->price }}</h5>
-                                    <a href="#" class="btn btn-primary btn-hover-2">Add To Cart</a>
+                                    @guest
+                                        <a class="btn btn-primary btn-hover-2" data-bs-toggle="offcanvas"
+                                           href="#offcanvasLogin" role="button" aria-controls="offcanvasLogin">
+                                            first login
+                                        </a>
+                                    @else
+                                        <a href="{{ route('cart.add', [$item->id, auth()->user()->id]) }}" class="btn btn-primary btn-hover-2">Add To Cart</a>
+                                    @endguest
                                 </div>
                             </div>
                         </div>
                     @endforeach
                 </div>
             </div>
-            <img class="bg1 dz-move-down" src="assets/images/background/pic2.png" alt="/">
-            <img class="bg2 dz-parallax" data-parallax-speed="0.05" src="assets/images/background/pic3.png" alt="/">
+            <img class="bg1 dz-move-down" src="assets/frontend/images/background/pic2.png" alt="/">
+            <img class="bg2 dz-parallax" data-parallax-speed="0.05" src="assets/frontend/images/background/pic3.png" alt="/">
         </section>
         <!-- Image Box-2 -->
     @endif
@@ -124,13 +131,21 @@
                                         <div class="dz-content">
                                             <div class="dz-info">
                                                 <h5 class="dz-title mb-0"><a
-                                                        href="our-menu-1.html">{{ $item->title }}</a>
+                                                        href="#">{{ $item->title }}</a>
                                                 </h5>
                                                 <span class="dz-price">${{ $item->price }}</span>
                                             </div>
-                                            <a href="shop-cart.html"
-                                               class="btn btn-cart btn-white text-primary btn-square"><i
-                                                    class="flaticon-shopping-cart"></i></a>
+                                            @guest
+                                                <a class="btn btn-primary btn-hover-2" data-bs-toggle="offcanvas"
+                                                   href="#offcanvasLogin" role="button" aria-controls="offcanvasLogin">
+                                                    first login
+                                                </a>
+                                            @else
+                                            <a href="{{ route('cart.add', [$item->id, auth()->user()->id]) }}"
+                                               class="btn btn-cart btn-white text-primary btn-square">
+                                                <i class="flaticon-shopping-cart"></i>
+                                            </a>
+                                            @endguest
                                         </div>
                                     </div>
                                 </div>
@@ -235,22 +250,22 @@
                     <div class="swiper testimonial-one-thumb">
                         <div class="swiper-wrapper">
                             <div class="swiper-slide">
-                                <img src="assets/images/testimonial/small/pic1.jpg" alt="/">
+                                <img src="assets/frontend/images/testimonial/small/pic1.jpg" alt="/">
                             </div>
                             <div class="swiper-slide">
-                                <img src="assets/images/testimonial/small/pic2.jpg" alt="/">
+                                <img src="assets/frontend/images/testimonial/small/pic2.jpg" alt="/">
                             </div>
                             <div class="swiper-slide">
-                                <img src="assets/images/testimonial/small/pic3.jpg" alt="/">
+                                <img src="assets/frontend/images/testimonial/small/pic3.jpg" alt="/">
                             </div>
                             <div class="swiper-slide">
-                                <img src="assets/images/testimonial/small/pic4.jpg" alt="/">
+                                <img src="assets/frontend/images/testimonial/small/pic4.jpg" alt="/">
                             </div>
                             <div class="swiper-slide">
-                                <img src="assets/images/testimonial/small/pic5.jpg" alt="/">
+                                <img src="assets/frontend/images/testimonial/small/pic5.jpg" alt="/">
                             </div>
                             <div class="swiper-slide">
-                                <img src="assets/images/testimonial/small/pic6.jpg" alt="/">
+                                <img src="assets/frontend/images/testimonial/small/pic6.jpg" alt="/">
                             </div>
                         </div>
                     </div>
@@ -360,7 +375,7 @@
             </div>
 
         </div>
-        <img class="bg1 dz-move-down" src="assets/images/background/pic2.png" alt="/">
+        <img class="bg1 dz-move-down" src="assets/frontend/images/background/pic2.png" alt="/">
     </section>
     <!-- Testimonial -->
 
@@ -374,238 +389,39 @@
         <div class="container">
             <div class="swiper team-swiper swiper-visible swiper-btn-lr">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <div class="dz-team style-1 wow fadeInUp" data-wow-delay="0.2s">
-                            <div class="dz-media">
-                                <img src="assets/images/team/pic1.jpg" alt="/">
-                            </div>
-                            <div class="dz-content">
-                                <div class="clearfix">
-                                    <h6 class="dz-name"><a href="team-detail.html">Sarah Albert</a></h6>
-                                    <span class="dz-position">Senior Chef</span>
-                                </div>
-                                <ul class="team-social">
-                                    <li>
-                                        <a class="share-btn" href="javascript:void(0);"><i
-                                                class="flaticon-share"></i></a>
-                                        <ul class="sub-team-social">
-                                            <li><a class="fb-btn" href="https://www.facebook.com/"
-                                                   target="_blank"><i class="fab fa-facebook-f"></i></a></li>
-                                            <li><a class="tw-btn" href="https://twitter.com/" target="_blank"><i
-                                                        class="fab fa-twitter"></i></a></li>
-                                            <li><a class="in-btn" href="https://www.instagram.com/" target="_blank"><i
-                                                        class="fab fa-instagram"></i></a></li>
-                                            <li><a class="lin-btn" href="https://www.linkedin.com/" target="_blank"><i
-                                                        class="fa-brands fa-linkedin-in"></i></a></li>
+                    @if(!empty($staff))
+                        @foreach($staff as $item)
+                            <div class="swiper-slide">
+                                <div class="dz-team style-1 wow fadeInUp" data-wow-delay="0.2s">
+                                    <div class="dz-media">
+                                        <img src="{{ $item->thumbnail }}">
+                                    </div>
+                                    <div class="dz-content">
+                                        <div class="clearfix">
+                                            <h6 class="dz-name"><a href="#">{{ $item->name }}</a></h6>
+                                            <span class="dz-position">{{ $item->responsibility }}</span>
+                                        </div>
+                                        <ul class="team-social">
+                                            <li>
+                                                <a class="share-btn" href="javascript:void(0);"><i
+                                                        class="flaticon-share"></i></a>
+                                                <ul class="sub-team-social">
+                                                    <li><a class="fb-btn" href="https://www.facebook.com/"
+                                                           target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+                                                    <li><a class="tw-btn" href="https://twitter.com/" target="_blank"><i
+                                                                class="fab fa-twitter"></i></a></li>
+                                                    <li><a class="in-btn" href="https://www.instagram.com/" target="_blank"><i
+                                                                class="fab fa-instagram"></i></a></li>
+                                                    <li><a class="lin-btn" href="https://www.linkedin.com/" target="_blank"><i
+                                                                class="fa-brands fa-linkedin-in"></i></a></li>
+                                                </ul>
+                                            </li>
                                         </ul>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="dz-team style-1 wow fadeInUp" data-wow-delay="0.4s">
-                            <div class="dz-media">
-                                <img src="assets/images/team/pic2.jpg" alt="/">
-                            </div>
-                            <div class="dz-content">
-                                <div class="clearfix">
-                                    <h6 class="dz-name"><a href="team-detail.html">John Doe</a></h6>
-                                    <span class="dz-position">Senior Chef</span>
+                                    </div>
                                 </div>
-                                <ul class="team-social">
-                                    <li>
-                                        <a class="share-btn" href="javascript:void(0);"><i
-                                                class="flaticon-share"></i></a>
-                                        <ul class="sub-team-social">
-                                            <li><a class="fb-btn" href="https://www.facebook.com/"
-                                                   target="_blank"><i class="fab fa-facebook-f"></i></a></li>
-                                            <li><a class="tw-btn" href="https://twitter.com/" target="_blank"><i
-                                                        class="fab fa-twitter"></i></a></li>
-                                            <li><a class="in-btn" href="https://www.instagram.com/" target="_blank"><i
-                                                        class="fab fa-instagram"></i></a></li>
-                                            <li><a class="lin-btn" href="https://www.linkedin.com/" target="_blank"><i
-                                                        class="fa-brands fa-linkedin-in"></i></a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
                             </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="dz-team style-1 wow fadeInUp" data-wow-delay="0.6s">
-                            <div class="dz-media">
-                                <img src="assets/images/team/pic3.jpg" alt="/">
-                            </div>
-                            <div class="dz-content">
-                                <div class="clearfix">
-                                    <h6 class="dz-name"><a href="team-detail.html">Jemy Carline</a></h6>
-                                    <span class="dz-position">Junior Chef</span>
-                                </div>
-                                <ul class="team-social">
-                                    <li>
-                                        <a class="share-btn" href="javascript:void(0);"><i
-                                                class="flaticon-share"></i></a>
-                                        <ul class="sub-team-social">
-                                            <li><a class="fb-btn" href="https://www.facebook.com/"
-                                                   target="_blank"><i class="fab fa-facebook-f"></i></a></li>
-                                            <li><a class="tw-btn" href="https://twitter.com/" target="_blank"><i
-                                                        class="fab fa-twitter"></i></a></li>
-                                            <li><a class="in-btn" href="https://www.instagram.com/" target="_blank"><i
-                                                        class="fab fa-instagram"></i></a></li>
-                                            <li><a class="lin-btn" href="https://www.linkedin.com/" target="_blank"><i
-                                                        class="fa-brands fa-linkedin-in"></i></a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="dz-team style-1 wow fadeInUp" data-wow-delay="0.8s">
-                            <div class="dz-media">
-                                <img src="assets/images/team/pic4.jpg" alt="/">
-                            </div>
-                            <div class="dz-content">
-                                <div class="clearfix">
-                                    <h6 class="dz-name"><a href="team-detail.html">Cotlin Care</a></h6>
-                                    <span class="dz-position">Senior Chef</span>
-                                </div>
-                                <ul class="team-social">
-                                    <li>
-                                        <a class="share-btn" href="javascript:void(0);"><i
-                                                class="flaticon-share"></i></a>
-                                        <ul class="sub-team-social">
-                                            <li><a class="fb-btn" href="https://www.facebook.com/"
-                                                   target="_blank"><i class="fab fa-facebook-f"></i></a></li>
-                                            <li><a class="tw-btn" href="https://twitter.com/" target="_blank"><i
-                                                        class="fab fa-twitter"></i></a></li>
-                                            <li><a class="in-btn" href="https://www.instagram.com/" target="_blank"><i
-                                                        class="fab fa-instagram"></i></a></li>
-                                            <li><a class="lin-btn" href="https://www.linkedin.com/" target="_blank"><i
-                                                        class="fa-brands fa-linkedin-in"></i></a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="dz-team style-1 wow fadeInUp" data-wow-delay="0.2s">
-                            <div class="dz-media">
-                                <img src="assets/images/team/pic1.jpg" alt="/">
-                            </div>
-                            <div class="dz-content">
-                                <div class="clearfix">
-                                    <h6 class="dz-name"><a href="team-detail.html">Sarah Albert</a></h6>
-                                    <span class="dz-position">Senior Chef</span>
-                                </div>
-                                <ul class="team-social">
-                                    <li>
-                                        <a class="share-btn" href="javascript:void(0);"><i
-                                                class="flaticon-share"></i></a>
-                                        <ul class="sub-team-social">
-                                            <li><a class="fb-btn" href="https://www.facebook.com/"
-                                                   target="_blank"><i class="fab fa-facebook-f"></i></a></li>
-                                            <li><a class="tw-btn" href="https://twitter.com/" target="_blank"><i
-                                                        class="fab fa-twitter"></i></a></li>
-                                            <li><a class="in-btn" href="https://www.instagram.com/" target="_blank"><i
-                                                        class="fab fa-instagram"></i></a></li>
-                                            <li><a class="lin-btn" href="https://www.linkedin.com/" target="_blank"><i
-                                                        class="fa-brands fa-linkedin-in"></i></a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="dz-team style-1 wow fadeInUp" data-wow-delay="0.4s">
-                            <div class="dz-media">
-                                <img src="assets/images/team/pic2.jpg" alt="/">
-                            </div>
-                            <div class="dz-content">
-                                <div class="clearfix">
-                                    <h6 class="dz-name"><a href="team-detail.html">John Doe</a></h6>
-                                    <span class="dz-position">Senior Chef</span>
-                                </div>
-                                <ul class="team-social">
-                                    <li>
-                                        <a class="share-btn" href="javascript:void(0);"><i
-                                                class="flaticon-share"></i></a>
-                                        <ul class="sub-team-social">
-                                            <li><a class="fb-btn" href="https://www.facebook.com/"
-                                                   target="_blank"><i class="fab fa-facebook-f"></i></a></li>
-                                            <li><a class="tw-btn" href="https://twitter.com/" target="_blank"><i
-                                                        class="fab fa-twitter"></i></a></li>
-                                            <li><a class="in-btn" href="https://www.instagram.com/" target="_blank"><i
-                                                        class="fab fa-instagram"></i></a></li>
-                                            <li><a class="lin-btn" href="https://www.linkedin.com/" target="_blank"><i
-                                                        class="fa-brands fa-linkedin-in"></i></a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="dz-team style-1 wow fadeInUp" data-wow-delay="0.6s">
-                            <div class="dz-media">
-                                <img src="assets/images/team/pic3.jpg" alt="/">
-                            </div>
-                            <div class="dz-content">
-                                <div class="clearfix">
-                                    <h6 class="dz-name"><a href="team-detail.html">Jemy Carline</a></h6>
-                                    <span class="dz-position">Junior Chef</span>
-                                </div>
-                                <ul class="team-social">
-                                    <li>
-                                        <a class="share-btn" href="javascript:void(0);"><i
-                                                class="flaticon-share"></i></a>
-                                        <ul class="sub-team-social">
-                                            <li><a class="fb-btn" href="https://www.facebook.com/"
-                                                   target="_blank"><i class="fab fa-facebook-f"></i></a></li>
-                                            <li><a class="tw-btn" href="https://twitter.com/" target="_blank"><i
-                                                        class="fab fa-twitter"></i></a></li>
-                                            <li><a class="in-btn" href="https://www.instagram.com/" target="_blank"><i
-                                                        class="fab fa-instagram"></i></a></li>
-                                            <li><a class="lin-btn" href="https://www.linkedin.com/" target="_blank"><i
-                                                        class="fa-brands fa-linkedin-in"></i></a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="dz-team style-1 wow fadeInUp" data-wow-delay="0.8s">
-                            <div class="dz-media">
-                                <img src="assets/images/team/pic4.jpg" alt="/">
-                            </div>
-                            <div class="dz-content">
-                                <div class="clearfix">
-                                    <h6 class="dz-name"><a href="team-detail.html">Cotlin Care</a></h6>
-                                    <span class="dz-position">Senior Chef</span>
-                                </div>
-                                <ul class="team-social">
-                                    <li>
-                                        <a class="share-btn" href="javascript:void(0);"><i
-                                                class="flaticon-share"></i></a>
-                                        <ul class="sub-team-social">
-                                            <li><a class="fb-btn" href="https://www.facebook.com/"
-                                                   target="_blank"><i class="fab fa-facebook-f"></i></a></li>
-                                            <li><a class="tw-btn" href="https://twitter.com/" target="_blank"><i
-                                                        class="fab fa-twitter"></i></a></li>
-                                            <li><a class="in-btn" href="https://www.instagram.com/" target="_blank"><i
-                                                        class="fab fa-instagram"></i></a></li>
-                                            <li><a class="lin-btn" href="https://www.linkedin.com/" target="_blank"><i
-                                                        class="fa-brands fa-linkedin-in"></i></a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+                        @endforeach
+                    @endif
                 </div>
                 <div class="pagination mt-xl-0 m-t40">
                     <div class="team-button-prev btn-prev-long"><i class="fa-solid fa-arrow-left"></i></div>
@@ -624,214 +440,34 @@
             </div>
             <div class="swiper blog-swiper swiper-visible swiper-btn-lr">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <div class="dz-card style-1 blog-half overlay-shine dz-img-effect zoom wow fadeInUp"
-                             data-wow-delay="0.4s">
-                            <div class="dz-media">
-                                <a href="blog-standard.html"><img
-                                        src="{{ asset('assets/frontend/images/blog/grid/pic1.jpg') }}"
-                                        alt="/"></a>
-                            </div>
-                            <div class="dz-info">
-                                <div class="dz-meta">
-                                    <ul>
-                                        <li><a href="javascript:void(0);"><i class="flaticon-calendar-date"></i> 26
-                                                Jan 2023</a></li>
-                                        <li class="dz-comment"><a href="javascript:void(0);"><i
-                                                    class="flaticon-chat-bubble"></i> 2.5K </a></li>
-                                    </ul>
-                                </div>
-                                <h5 class="dz-title"><a href="blog-standard.html">Taste of Paradise Dishes</a></h5>
-                                <p>There are many variations of passages of Lorem Ipsum available, but the majority
-                                    have.</p>
-                                <div class="read-btn">
-                                    <a href="blog-standard.html" class="btn btn-primary btn-hover-2">Read More</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="dz-card style-1 blog-half overlay-shine dz-img-effect zoom wow fadeInUp"
-                             data-wow-delay="0.6s">
-                            <div class="dz-media">
-                                <a href="blog-standard.html"><img
-                                        src="{{ asset('assets/frontend/images/blog/grid/pic2.jpg') }}"
-                                        alt="/"></a>
-                            </div>
-                            <div class="dz-info">
-                                <div class="dz-meta">
-                                    <ul>
-                                        <li><a href="javascript:void(0);"><i class="flaticon-calendar-date"></i> 15
-                                                Mar 2023</a></li>
-                                        <li class="dz-comment"><a href="javascript:void(0);"><i
-                                                    class="flaticon-chat-bubble"></i> 1.5K</a></li>
-                                    </ul>
-                                </div>
-                                <h5 class="dz-title"><a href="blog-standard.html">The Spices Route Taste</a></h5>
-                                <p>There are many variations of passages of Lorem Ipsum available, but the majority
-                                    have.</p>
-                                <div class="read-btn">
-                                    <a href="blog-standard.html" class="btn btn-primary btn-hover-2">Read More</a>
+                    @if(!empty($blog))
+                        @foreach($blog as $item)
+                            <div class="swiper-slide">
+                                <div class="dz-card style-1 blog-half overlay-shine dz-img-effect zoom wow fadeInUp"
+                                     data-wow-delay="0.4s">
+                                    <div class="dz-media">
+                                        <a href="blog-standard.html"><img
+                                                src="{{ asset($item->thumbnail) }}"
+                                                alt="/"></a>
+                                    </div>
+                                    <div class="dz-info">
+                                        <div class="dz-meta">
+                                            <ul>
+                                                <li><a href="javascript:void(0);"><i class="flaticon-calendar-date"></i>{{ $item->created_at->format('d M Y') }}</a></li>
+                                                <li class="dz-comment"><a href="javascript:void(0);"><i
+                                                            class="flaticon-chat-bubble"></i> 2.5K </a></li>
+                                            </ul>
+                                        </div>
+                                        <h5 class="dz-title"><a href="{{ route('get.blog', $item->id) }}">{{ $item->title }}</a></h5>
+                                        <p>{!! Str::limit($item->description, 100) !!}</p>
+                                        <div class="read-btn">
+                                            <a href="{{ route('get.blog', $item->id) }}" class="btn btn-primary btn-hover-2">Read More</a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="dz-card style-1 blog-half wow overlay-shine dz-img-effect zoom fadeInUp"
-                             data-wow-delay="0.4s">
-                            <div class="dz-media">
-                                <a href="blog-standard.html"><img
-                                        src="{{ asset('assets/frontend/images/blog/grid/pic3.jpg') }}"
-                                        alt="/"></a>
-                            </div>
-                            <div class="dz-info">
-                                <div class="dz-meta">
-                                    <ul>
-                                        <li><a href="javascript:void(0);"><i class="flaticon-calendar-date"></i> 20
-                                                Sep 2023</a></li>
-                                        <li class="dz-comment"><a href="javascript:void(0);"><i
-                                                    class="flaticon-chat-bubble"></i> 2.0K</a></li>
-                                    </ul>
-                                </div>
-                                <h5 class="dz-title"><a href="blog-standard.html">The Fork & Knife</a></h5>
-                                <p>There are many variations of passages of Lorem Ipsum available, but the majority
-                                    have.</p>
-                                <div class="read-btn">
-                                    <a href="blog-standard.html" class="btn btn-primary btn-hover-2">Read More</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="dz-card style-1 blog-half overlay-shine dz-img-effect zoom wow fadeInUp"
-                             data-wow-delay="0.6s">
-                            <div class="dz-media">
-                                <a href="blog-standard.html"><img
-                                        src="{{ asset('assets/frontend/images/blog/grid/pic4.jpg') }}"
-                                        alt="/"></a>
-                            </div>
-                            <div class="dz-info">
-                                <div class="dz-meta">
-                                    <ul>
-                                        <li><a href="javascript:void(0);"><i class="flaticon-calendar-date"></i> 30
-                                                Nov 2023</a></li>
-                                        <li class="dz-comment"><a href="javascript:void(0);"><i
-                                                    class="flaticon-chat-bubble"></i> 3.5K </a></li>
-                                    </ul>
-                                </div>
-                                <h5 class="dz-title"><a href="blog-standard.html">Flavors Of The World</a></h5>
-                                <p>There are many variations of passages of Lorem Ipsum available, but the majority
-                                    have.</p>
-                                <div class="read-btn">
-                                    <a href="blog-standard.html" class="btn btn-primary btn-hover-2">Read More</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="dz-card style-1 blog-half overlay-shine dz-img-effect zoom wow fadeInUp"
-                             data-wow-delay="0.4s">
-                            <div class="dz-media">
-                                <a href="blog-standard.html"><img
-                                        src="{{ asset('assets/frontend/images/blog/grid/pic1.jpg') }}"
-                                        alt="/"></a>
-                            </div>
-                            <div class="dz-info">
-                                <div class="dz-meta">
-                                    <ul>
-                                        <li><a href="javascript:void(0);"><i class="flaticon-calendar-date"></i> 26
-                                                Jan 2023</a></li>
-                                        <li class="dz-comment"><a href="javascript:void(0);"><i
-                                                    class="flaticon-chat-bubble"></i> 2.5K </a></li>
-                                    </ul>
-                                </div>
-                                <h5 class="dz-title"><a href="blog-standard.html">Taste of Paradise Dishes</a></h5>
-                                <p>There are many variations of passages of Lorem Ipsum available, but the majority
-                                    have.</p>
-                                <div class="read-btn">
-                                    <a href="blog-standard.html" class="btn btn-primary btn-hover-2">Read More</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="dz-card style-1 blog-half overlay-shine dz-img-effect zoom wow fadeInUp"
-                             data-wow-delay="0.6s">
-                            <div class="dz-media">
-                                <a href="blog-standard.html"><img
-                                        src="{{ asset('assets/frontend/images/blog/grid/pic2.jpg') }}"
-                                        alt="/"></a>
-                            </div>
-                            <div class="dz-info">
-                                <div class="dz-meta">
-                                    <ul>
-                                        <li><a href="javascript:void(0);"><i class="flaticon-calendar-date"></i> 15
-                                                Mar 2023</a></li>
-                                        <li class="dz-comment"><a href="javascript:void(0);"><i
-                                                    class="flaticon-chat-bubble"></i> 1.5K</a></li>
-                                    </ul>
-                                </div>
-                                <h5 class="dz-title"><a href="blog-standard.html">The Spices Route Taste</a></h5>
-                                <p>There are many variations of passages of Lorem Ipsum available, but the majority
-                                    have.</p>
-                                <div class="read-btn">
-                                    <a href="blog-standard.html" class="btn btn-primary btn-hover-2">Read More</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="dz-card style-1 blog-half wow overlay-shine dz-img-effect zoom fadeInUp"
-                             data-wow-delay="0.4s">
-                            <div class="dz-media">
-                                <a href="blog-standard.html"><img
-                                        src="{{ asset('assets/frontend/images/blog/grid/pic3.jpg') }}"
-                                        alt="/"></a>
-                            </div>
-                            <div class="dz-info">
-                                <div class="dz-meta">
-                                    <ul>
-                                        <li><a href="javascript:void(0);"><i class="flaticon-calendar-date"></i> 20
-                                                Sep 2023</a></li>
-                                        <li class="dz-comment"><a href="javascript:void(0);"><i
-                                                    class="flaticon-chat-bubble"></i> 2.0K</a></li>
-                                    </ul>
-                                </div>
-                                <h5 class="dz-title"><a href="blog-standard.html">The Fork & Knife</a></h5>
-                                <p>There are many variations of passages of Lorem Ipsum available, but the majority
-                                    have.</p>
-                                <div class="read-btn">
-                                    <a href="blog-standard.html" class="btn btn-primary btn-hover-2">Read More</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="dz-card style-1 blog-half overlay-shine dz-img-effect zoom wow fadeInUp"
-                             data-wow-delay="0.6s">
-                            <div class="dz-media">
-                                <a href="blog-standard.html"><img
-                                        src="{{ asset('assets/frontend/images/blog/grid/pic4.jpg') }}"
-                                        alt="/"></a>
-                            </div>
-                            <div class="dz-info">
-                                <div class="dz-meta">
-                                    <ul>
-                                        <li><a href="javascript:void(0);"><i class="flaticon-calendar-date"></i> 30
-                                                Nov 2023</a></li>
-                                        <li class="dz-comment"><a href="javascript:void(0);"><i
-                                                    class="flaticon-chat-bubble"></i> 3.5K </a></li>
-                                    </ul>
-                                </div>
-                                <h5 class="dz-title"><a href="blog-standard.html">Flavors Of The World</a></h5>
-                                <p>There are many variations of passages of Lorem Ipsum available, but the majority
-                                    have.</p>
-                                <div class="read-btn">
-                                    <a href="blog-standard.html" class="btn btn-primary btn-hover-2">Read More</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                        @endforeach
+                    @endif
                 </div>
                 <div class="pagination mt-xl-0 m-t40">
                     <div class="blog-button-prev btn-prev-long"><i class="fa-solid fa-arrow-left"></i></div>
